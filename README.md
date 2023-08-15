@@ -274,7 +274,7 @@ $ python server/llm_api_launch.py --model-path-addresss model1@host1@port1 model
 $ python server/llm_api_launch.py --gpus 0,1 --num-gpus 2 --max-gpu-memory 10GiB
 ```
 
-注：以如上方式启动LLM服务会以nohup命令在后台运行 FastChat 服务，如需停止服务，可以运行如下命令：
+注：以如上方式启动LLM服务会以nohup命令在后台运行 fastchat 服务，如需停止服务，可以运行如下命令,但该脚本**仅适用于linux和mac平台**：
 
 ```shell
 $ python server/llm_api_shutdown.py --serve all 
@@ -349,6 +349,55 @@ $ streamlit run webui.py --server.port 666
 
 ---
 
+### 6 一键启动：
+
+#### 6.1 api服务一键启动脚本
+
+新增api一键启动脚本，可一键开启fastchat后台服务及本项目提供的langchain api服务,调用示例：
+
+调用默认模型：
+
+```shell
+$ python server/api_allinone.py
+```
+
+加载多个非默认模型：
+
+```shell
+$ python server/api_allinone.py --model-path-address model1@host1@port1 model2@host2@port2
+```
+
+多卡启动：
+
+```shell
+python server/api_allinone.py --model-path-address model@host@port --num-gpus 2 --gpus 0,1 --max-gpu-memory 10GiB
+```
+其他参数详见各脚本及fastchat服务说明。
+
+#### 6.2 webui一键启动脚本
+加载本地模型：
+```shell
+$ python webui_allinone.py
+```
+
+调用远程api服务：
+```shell
+$ python webui_allinone.py --use-remote-api
+```
+后台运行webui服务：
+```shell
+$ python webui_allinone.py --nohup
+```
+加载多个非默认模型：
+```shell
+$ python webui_allinone.py --model-path-address model1@host1@port1 model2@host2@port2 
+```
+多卡启动：
+```
+python webui_alline.py --model-path-address model@host@port --num-gpus 2 --gpus 0,1 --max-gpu-memory 10GiB
+```
+其他参数详见各脚本及fastchat服务说明。
+
 ## 常见问题
 
 参见 [常见问题](docs/FAQ.md)。
@@ -391,6 +440,6 @@ $ streamlit run webui.py --server.port 666
 
 ## 项目交流群
 
-<img src="img/qr_code_51.jpg" alt="二维码" width="300" height="300" />
+<img src="img/qr_code_52.jpg" alt="二维码" width="300" height="300" />
 
 🎉 langchain-ChatGLM 项目微信交流群，如果你也对本项目感兴趣，欢迎加入群聊参与讨论交流。
